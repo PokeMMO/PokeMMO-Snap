@@ -35,7 +35,7 @@ package-repositories:
 
 apps:
   pokemmo:
-    command: $SNAP/launcher
+    command: "./launcher"
     extensions: [ gnome ]
     plugs:
       - network
@@ -64,6 +64,7 @@ parts:
         amd64) cp linux/x64/PokeMMO-Updater $CRAFT_PART_INSTALL/launcher ;;
         arm64) cp linux/arm64/PokeMMO-Updater $CRAFT_PART_INSTALL/launcher ;;
       esac
+      chmod +x $CRAFT_PART_INSTALL/launcher
       
       # Handle legacy runtime directory
       mkdir -p $CRAFT_PART_INSTALL/runtime
