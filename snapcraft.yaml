@@ -1,7 +1,7 @@
 name: pokemmo
 title: PokeMMO
 base: core24
-version: '3.0e'
+version: '4.0a-beta1'
 summary: PokeMMO Game Client
 license: 'Proprietary'
 grade: stable
@@ -35,7 +35,7 @@ package-repositories:
 
 apps:
   pokemmo:
-    command: runtime/bin/java -jar $SNAP/jar/unix-installer.jar
+    command: $SNAP/launcher
     extensions: [ gnome ]
     plugs:
       - network
@@ -56,15 +56,16 @@ apps:
 parts:
   pokemmo:
     plugin: dump
-    source: https://github.com/kyu-n/pokemmo-unix-installer/releases/download/v3.0e-stable/v3.0e-stable.zip
+    source: https://github.com/PokeMMO/PokeMMO-Launcher/releases/download/v4.0a-beta1/native-image.zip
     source-type: zip
-    source-checksum: sha256/e0f1720ef9ce5a6a08d517ca846fec31e57fc2b720f25e810bb25bc4d1e81d4a
+    source-checksum: sha256/9620cb24eaec80d643a42df5058e78e73b11c04264d35de2096a79b88a06ef69
     override-build: |
-      # The JAR is already extracted by the dump plugin
-      mkdir -p $CRAFT_PART_INSTALL/jar
-      cp unix-installer.jar $CRAFT_PART_INSTALL/jar/
+      case "$CRAFT_ARCH_BUILD_FOR" in
+        amd64) cp linux/x64/PokeMMO-Updater $CRAFT_PART_INSTALL/launcher ;;
+        arm64) cp linux/arm64/PokeMMO-Updater $CRAFT_PART_INSTALL/launcher ;;
+      esac
       
-      # Handle runtime directory
+      # Handle legacy runtime directory
       mkdir -p $CRAFT_PART_INSTALL/runtime
       cp -r /usr/lib/jvm/bellsoft-java21-*/* $CRAFT_PART_INSTALL/runtime/ || true
     stage-packages:

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=PokeMMO
 Comment=PokeMMO Game Client
-Exec=pokemmo
+Exec=pokemmo --launch
 Keywords=game;adventure;multiplayer;online;emulator;monster;battle;
 Terminal=false
 Type=Application
